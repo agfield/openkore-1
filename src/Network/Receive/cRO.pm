@@ -40,7 +40,7 @@ sub new {
 		'082D' => ['received_characters_info', 'x2 C5 x20', [qw(normal_slot premium_slot billing_slot producible_slot valid_slot)]],
 		'099B' => ['map_property3', 'v a4', [qw(type info_table)]],
 		'099F' => ['area_spell_multiple2', 'v a*', [qw(len spellInfo)]], # -1
-		'0367' => ['sync_request_ex'],
+		#'0367' => ['sync_request_ex'],
 		'085A' => ['sync_request_ex'],
 		'085B' => ['sync_request_ex'],
 		'085C' => ['sync_request_ex'],
@@ -56,7 +56,7 @@ sub new {
 		'0866' => ['sync_request_ex'],
 		'0867' => ['sync_request_ex'],
 		'0868' => ['sync_request_ex'],
-		'023B' => ['sync_request_ex'],
+		#'023B' => ['sync_request_ex'],
 		'086A' => ['sync_request_ex'],
 		'086B' => ['sync_request_ex'],
 		'086C' => ['sync_request_ex'],
