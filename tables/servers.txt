@@ -308,6 +308,17 @@ serverEncoding Russian
 charBlockSize 132
 addTableFolders rRO
 
+[cRO - China: Taren]
+ip 118.89.42.108
+#ip char.ro.zhaouc.com
+port 6900
+master_version 4
+version 1
+serverType cRO
+serverEncoding GBK
+charBlockSize 145
+addTableFolders cRO
+
 [Taiwan - twRO: OldFriend (ChaosFree, IrisFree, LokiFree)]
 ip 220.130.113.235
 port 6900
