@@ -92,4 +92,9 @@ sub sendCharCreate {
 	debug "Sent sendCharCreate\n", "sendPacket", 2;
 }
 
+sub sendSellBuyComplete {
+	my ($self) = @_;
+	$messageSender->sendToServer(pack 'C*', 0xD4, 0x09);
+}
+
 1;
