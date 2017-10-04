@@ -124,6 +124,7 @@ sub new {
 		'093D' => ['sync_request_ex'],
 		'093E' => ['sync_request_ex'],
 		'093F' => ['sync_request_ex'],
+		'0940' => ['sync_request_ex'],
 	);
 
 	foreach my $switch (keys %packets) {
@@ -228,6 +229,7 @@ sub new {
 		'093D' => '0967',
 		'093E' => '0968',
 		'093F' => '0969',
+		'0940' => '096A',
 	};
 
 	return $self;
