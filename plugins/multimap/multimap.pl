@@ -5,11 +5,12 @@ use Globals qw/%config $net %timeout_ex $field/;
 use Log qw/message/;
 use Translation qw/T TF/;
 use Commands;
+use Misc qw(offlineMode);
 
 Plugins::register('multimap', 'multimap', \&on_unload);
 
 my $hooks = Plugins::addHooks(
-	['AI_pre', \&AI_pre],
+	['mainLoop_pre', \&mainLoop_pre],
 );
 
 my $chooks = Commands::register(
@@ -19,23 +20,48 @@ my $chooks = Commands::register(
 my $last_lock_map;
 my $last_interval = 0;
 my $last_change_time = 0;
+my $finish_count = 0;
 
 sub on_unload {
 	Plugins::delHooks($hooks);
 	Commands::unregister($chooks);
 }
 
-sub AI_pre {
+sub mainLoop_pre {
+	return unless $field;
 	return unless $config{'multiMap'};
 	return if time() < $last_change_time + $last_interval;
 
-	if (!$last_lock_map && $config{'multiMap'} =~ $field->baseName) {
-		$config{'lockMap'} = $field->baseName;
-		calc_next_change_time();
-	} else {
-		change_lockmap();
-		Commands::run("autostorage") if $config{'multiMapStorage'};
+	if ($net && $net->getState == Network::NOT_CONNECTED) {
+		Commands::run("connect");
+		return;
 	}
+
+	# init first lock map
+	if (!$last_lock_map) {
+		if ($config{'multiMap'} =~ $field->baseName) {
+			$config{'lockMap'} = $field->baseName;
+			calc_next_change_time();
+		} else {
+			change_lockmap();
+		}
+		$finish_count = 0;
+		return;
+	}
+
+	# we have finished a map
+	$finish_count++;
+	message TF("lockMap finished count %d\n", $finish_count), "system";
+
+	if ($finish_count >= $config{'multiMapRest'}) {
+		offlineMode();
+		calc_next_change_time();
+		$finish_count = -1;
+		return;
+	}
+
+	change_lockmap();
+	Commands::run("autostorage") if $config{'multiMapStorage'};
 }
 
 sub change_lockmap {
