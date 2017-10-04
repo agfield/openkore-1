@@ -318,6 +318,7 @@ serverType cRO
 serverEncoding GBK
 charBlockSize 145
 addTableFolders cRO
+gameGuard 1
 
 [Taiwan - twRO: OldFriend (ChaosFree, IrisFree, LokiFree)]
 ip 220.130.113.235
