@@ -68,11 +68,15 @@ sub change_lockmap {
 	my @lockmap = split(/ /, $config{'multiMap'});
 	my $randmap;
 
-	while (($randmap = $lockmap[int(rand(@lockmap))]) eq $config{'lockMap'}) {
-		;#do nothing
+	if ($config{'multiMap'} eq $config{'lockMap'}) {
+		message TF("lockMap not changed as it equals to multiMap\n"), "system";
+	} else {
+		while (($randmap = $lockmap[int(rand(@lockmap))]) eq $config{'lockMap'}) {
+			;#do nothing
+		}
+		$config{'lockMap'} = $randmap;
+		message TF("lockMap changed from '%s' to '%s'\n", $last_lock_map, $config{'lockMap'}), "system";
 	}
-	$config{'lockMap'} = $randmap;
-	message TF("lockMap changed from '%s' to '%s'\n", $last_lock_map, $config{'lockMap'}), "system";
 
 	calc_next_change_time();
 }
