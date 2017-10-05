@@ -15,6 +15,7 @@ my $hooks = Plugins::addHooks(
 
 my $chooks = Commands::register(
 	['cmap', "Change lockmap", \&change_lockmap],
+	['fmap', "Finish lockmap", \&finish_lockmap],
 );
 
 my $last_lock_map;
@@ -37,11 +38,13 @@ sub mainLoop_pre {
 		return;
 	}
 
+	calc_next_change_time();
+
 	# init first lock map
 	if (!$last_lock_map) {
 		if ($config{'multiMap'} =~ $field->baseName) {
 			$config{'lockMap'} = $field->baseName;
-			calc_next_change_time();
+			$last_lock_map = $config{'lockMap'};
 		} else {
 			change_lockmap();
 		}
@@ -49,16 +52,8 @@ sub mainLoop_pre {
 		return;
 	}
 
-	# we have finished a map
-	$finish_count++;
-	message TF("lockMap finished count %d\n", $finish_count), "system";
-
-	if ($finish_count >= $config{'multiMapRest'}) {
-		offlineMode();
-		calc_next_change_time();
-		$finish_count = -1;
-		return;
-	}
+	finish_lockmap();
+	return if ($net && $net->getState == Network::NOT_CONNECTED);
 
 	change_lockmap();
 	Commands::run("autostorage") if $config{'multiMapStorage'};
@@ -76,13 +71,21 @@ sub change_lockmap {
 		}
 		$config{'lockMap'} = $randmap;
 		message TF("lockMap changed from '%s' to '%s'\n", $last_lock_map, $config{'lockMap'}), "system";
+		$last_lock_map = $config{'lockMap'};
 	}
+}
 
-	calc_next_change_time();
+sub finish_lockmap {
+	$finish_count++;
+	message TF("lockMap finished count %d\n", $finish_count), "system";
+
+	if ($finish_count >= $config{'multiMapRest'}) {
+		offlineMode();
+		$finish_count = -1;
+	}
 }
 
 sub calc_next_change_time {
-	$last_lock_map = $config{'lockMap'};
 	$last_interval = $config{'multiMapIntervalMin'} + int(rand($config{'multiMapIntervalSeed'}));
 	$last_change_time = time();
 	message TF("next change in %d sec\n", $last_interval), "system";
