@@ -5,7 +5,7 @@ use Globals qw/%config $net %timeout_ex $field/;
 use Log qw/message/;
 use Translation qw/T TF/;
 use Commands;
-use Misc qw(offlineMode);
+use Misc qw(offlineMode configModify);
 
 Plugins::register('multimap', 'multimap', \&on_unload);
 
@@ -44,7 +44,7 @@ sub mainLoop_pre {
 	# init first lock map
 	if (!$last_lock_map) {
 		if ($config{'multiMap'} =~ $field->baseName) {
-			$config{'lockMap'} = $field->baseName;
+			configModify('lockMap', $field->baseName);
 			$last_lock_map = $config{'lockMap'};
 			message TF("lockMap init to current map %s\n", $config{'lockMap'}), "system";
 		} else {
@@ -74,7 +74,7 @@ sub change_lockmap {
 		while (($randmap = $lockmap[int(rand(@lockmap))]) eq $config{'lockMap'}) {
 			;#do nothing
 		}
-		$config{'lockMap'} = $randmap;
+		configModify('lockMap', $randmap);
 		message TF("lockMap changed from '%s' to '%s'\n", $last_lock_map, $config{'lockMap'}), "system";
 		$last_lock_map = $config{'lockMap'};
 	}
@@ -90,8 +90,8 @@ sub finish_lockmap {
 }
 
 sub state_lockmap {
-	message TF("lockMap is %s\n", $config{'lockMap'}), "system";
-	message TF("finished count is %d\n", $finish_count), "system";
+	message TF("lockMap is %s, ", $config{'lockMap'}), "system";
+	message TF("finished count is %d, ", $finish_count), "system";
 	message TF("next change in %d sec\n", $last_interval), "system";
 }
 
