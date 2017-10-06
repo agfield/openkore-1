@@ -49,17 +49,19 @@ sub find_sutible_multimap {
 }
 
 sub change_lockmap {
-	my $randmap;
+	my $newmap;
 
-	if ($#current_multimap == 1) {
-		message TF("lockMap not changed as only one map in multimap\n"), "system";
+	if ($#current_multimap + 1 < 2) {
+		$newmap = $current_multimap[0];
+		#message TF("lockMap not changed as only one map in multimap\n"), "system";
 	} else {
-		while (($randmap = $current_multimap[int(rand(@current_multimap))]) eq $config{'lockMap'}) {
+		while (($newmap = $current_multimap[int(rand(@current_multimap))]) eq $config{'lockMap'}) {
 			;#do nothing
 		}
-		#message TF("lockMap changed from '%s' to '%s'\n", $config{'lockMap'}, $randmap), "system";
-		configModify('lockMap', $randmap);
+		#message TF("lockMap changed from '%s' to '%s'\n", $config{'lockMap'}, $newmap), "system";
 	}
+
+	configModify('lockMap', $newmap);
 }
 
 sub finish_lockmap {
