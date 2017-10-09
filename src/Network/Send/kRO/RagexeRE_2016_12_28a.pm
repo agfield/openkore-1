@@ -13,7 +13,7 @@
 package Network::Send::kRO::RagexeRE_2016_12_28a;
 
 use strict;
-use base qw(Network::Send::kRO::RagexeRE_2016_02_03a);
+use base qw(Network::Send::kRO::RagexeRE_2016_12_07e);
 
 sub new {
 	my ($class) = @_;
@@ -31,15 +31,15 @@ sub new {
 		'0886' => ['character_move', 'a3', [qw(coordString)]],
 		'091C' => ['friend_request', 'a*', [qw(username)]],# len 26
 		'085E' => ['homunculus_command', 'v C', [qw(commandType, commandID)]],
-		'0893' => ['item_drop', 'v2', [qw(index amount)]],
+		'0893' => ['item_drop', 'a2 v', [qw(ID amount)]],
 		'0889' => ['item_list_res', 'v V2 a*', [qw(len type action itemInfo)]],
 		'086C' => ['item_take', 'a4', [qw(ID)]],
 		'086D' => ['map_login', 'a4 a4 a4 V C', [qw(accountID charID sessionID tick sex)]],
 		'0934' => ['party_join_request_by_name', 'Z24', [qw(partyName)]],
 		'08A2' => ['skill_use', 'v2 a4', [qw(lv skillID targetID)]],
 		'0929' => ['skill_use_location', 'v4', [qw(lv skillID x y)]],
-		'089F' => ['storage_item_add', 'v V', [qw(index amount)]],
-		'08AB' => ['storage_item_remove', 'v V', [qw(index amount)]],
+		'089F' => ['storage_item_add', 'a2 V', [qw(ID amount)]],
+		'08AB' => ['storage_item_remove', 'a2 V', [qw(ID amount)]],
 		'08AD' => ['storage_password'],
 		'0944' => ['sync', 'V', [qw(time)]],		
 	);
