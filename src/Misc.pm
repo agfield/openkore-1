@@ -2308,6 +2308,7 @@ sub mon_control {
 sub pickupitems {
 	my ($name) = @_;
 
+	return 2 if $name =~ '卡片';
 	return ($pickupitems{lc($name)} ne '') ? $pickupitems{lc($name)} : $pickupitems{all};
 }
 
@@ -3226,10 +3227,10 @@ sub useTeleport {
 	}
 
 	# no item, but skill is still available
-	if ( $sk_lvl > 0 ) {
-		message T("No Fly Wing or Butterfly Wing, fallback to Teleport Skill\n"), "useTeleport";
-		return useTeleport($use_lvl, 1, $emergency);
-	}
+	#if ( $sk_lvl > 0 ) {
+	#	message T("No Fly Wing or Butterfly Wing, fallback to Teleport Skill\n"), "useTeleport";
+	#	return useTeleport($use_lvl, 1, $emergency);
+	#}
 
 	if ($use_lvl == 1) {
 		message T("You don't have the Teleport skill or a Fly Wing\n"), "teleport";
