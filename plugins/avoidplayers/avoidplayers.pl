@@ -51,12 +51,12 @@ sub AI_pre {
 		} else {
 			if ($avoids->{"$player->{nameID}"}+$config{'avoidPlayers_teleportDelay'} < time &&
 				AI::action ne 'attack' && AI::action ne 'items_take') {
-				$avoids = {};
-				$avoid_count++;
 				useTeleport(1);
 				message TF("Teleport to avoid player %s(%d), timeout %d\n",
 					$player->{'name'}, $player->{'nameID'},
 					time-$avoids->{"$player->{nameID}"}), "teleport";
+				$avoids = {};
+				$avoid_count++;
 				last;
 			}
 		}
