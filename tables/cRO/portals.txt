@@ -140,7 +140,7 @@ rachel 109 138 veins 205 101 2200 c r2 c r0
 rachel 109 138 yuno 158 125 3000 c r2 c r1
 veins 208 128 rachel 115 125 2200 c r2 c r0
 veins 208 128 yuno 158 125 3000 c r2 c r1
-moc_para01 14 32 prontera 116 72 1800 c c r0 c n
+#moc_para01 14 32 prontera 116 72 1800 c c r0 c n
 
 # Training Grounds
 new_1-1 148 112 new_1-2 100 9
@@ -3130,3 +3130,22 @@ bra_in01 144 187 bra_in01 0 206 102 c r0 n
 bra_in01 206 188 bra_dun01 87 47 0 n
 bra_dun01 87 43 bra_in01 206 185 0 n
 mjolnir_05 220 382 mjolnir_12 220 29
+yuno_fild09 20 193 yuno_fild08 372 194
+yuno_fild01 287 367 yuno_fild09 280 32
+yuno_fild02 287 16 yuno_fild08 285 382
+yuno_fild12 193 372 yuno_fild08 134 33
+mjolnir_07 214 383 mjolnir_03 212 20
+yuno_fild07 360 72 yuno_fild08 35 61
+yuno_fild01 27 247 yuno_fild12 366 244
+yuno_fild12 193 372 yuno_fild08 134 33
+yuno_fild01 27 247 yuno_fild12 366 244
+yuno_fild01 70 377 yuno_fild09 70 21
+c_tower2 142 283 c_tower3 65 147
+moc_para01 41 187 moc_para01 179 90
+moc_para01 179 90 moc_para01 41 185
+moc_para01 180 156 moc_para01 29 187
+moc_para01 29 187 moc_para01 180 159
+moc_para01 132 156 moc_para01 17 187
+moc_para01 17 187 moc_para01 132 159
+moc_para01 47 161 moc_para01 47 18
+moc_para01 30 10 prontera 116 72
