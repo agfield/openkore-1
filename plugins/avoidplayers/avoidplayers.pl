@@ -18,7 +18,7 @@ my $chooks = Commands::register(
 );
 
 my $avoids = {};
-my $avoid_count = 0;
+my $avoid_count = {};
 my $avoid_change_map_count = 0;
 
 sub on_unload {
@@ -28,7 +28,7 @@ sub on_unload {
 
 sub state_avoidplayers {
 	message TF("avoid count is %d, change-map count is %d\n",
-		$avoid_count, $avoid_change_map_count), "system";
+		$avoid_count->{$field->baseName}, $avoid_change_map_count), "system";
 }
 
 sub AI_pre {
@@ -50,20 +50,20 @@ sub AI_pre {
 			message TF("Find a player %s(%d) nearby\n", $player->{'name'}, $player->{'nameID'}), "teleport";
 		} else {
 			if ($avoids->{"$player->{nameID}"}+$config{'avoidPlayers_teleportDelay'} < time &&
-				AI::action ne 'attack' && AI::action ne 'items_take') {
+				AI::action eq 'route') {
 				useTeleport(1);
 				message TF("Teleport to avoid player %s(%d), timeout %d\n",
 					$player->{'name'}, $player->{'nameID'},
 					time-$avoids->{"$player->{nameID}"}), "teleport";
 				$avoids = {};
-				$avoid_count++;
+				$avoid_count->{$field->baseName}++;
 				last;
 			}
 		}
 	}
 
-	if ($avoid_count >= $config{'avoidPlayers_countToChangeMap'}) {
-		$avoid_count = 0;
+	if ($avoid_count->{$field->baseName} >= $config{'avoidPlayers_countToChangeMap'}) {
+		$avoid_count->{$field->baseName} = 0;
 		$avoid_change_map_count++;
 		Commands::run("cmap");
 	}
