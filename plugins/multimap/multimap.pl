@@ -6,7 +6,6 @@ use Log qw/message/;
 use Translation qw/T TF/;
 use Commands;
 use Misc qw(offlineMode configModify);
-use Data::Dumper;
 
 Plugins::register('multimap', 'multimap', \&on_unload);
 
@@ -109,9 +108,9 @@ sub multimap_init {
 }
 
 sub mainLoop_pre {
+	return unless $config{'multiMapEnable'};
 	return unless $field;
 	return unless $char;
-	return unless $config{'multiMapEnable'};
 
 	multimap_init() if !@current_multimap or $char->{'lv'} >= $current_multimap_lvmax;
 
