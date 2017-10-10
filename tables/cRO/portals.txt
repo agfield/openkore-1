@@ -10,8 +10,8 @@ alberta 245 93 amatsu 197 83 10000 c r1 c c c r0 n
 amatsu 194 79 alberta 243 91 0 c r0 n
 alberta 245 69 gon_fild01 258 82 0 c r1 c c r0 n
 gon_fild01 255 79 alberta 243 67 0 c r0 n
-izlude 201 181 izlu2dun 107 50 150 c r0
-izlu2dun 108 27 izlude 176 182 0 c r0
+izlude 197 205 izlu2dun 107 50 150 c r0
+izlu2dun 108 27 izlude 195 210 0 c r0
 prt_fild05 270 212 prt_sewb1 135 248 0 c r0
 aldebaran 223 222 xmas_fild01 78 68 0 c r1 c c n
 moc_fild12 35 303 cmd_fild08 331 319 0 c r0 n
@@ -3149,3 +3149,6 @@ moc_para01 132 156 moc_para01 17 187
 moc_para01 17 187 moc_para01 132 159
 moc_para01 47 161 moc_para01 47 18
 moc_para01 30 10 prontera 116 72
+yuno_fild12 193 372 yuno_fild08 134 33
+yuno_fild01 287 367 yuno_fild09 280 32
+yuno_fild01 27 247 yuno_fild12 366 244

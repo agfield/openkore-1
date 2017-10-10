@@ -30,6 +30,7 @@ use Translation qw(T TF);
 use Log qw(debug);
 use Utils qw(timeOut);
 use Utils::Exceptions;
+use Misc qw(useTeleport quit);
 
 # Stage constants.
 use constant {
@@ -187,6 +188,17 @@ sub iterate {
 			$self->setError(CANNOT_CALCULATE_ROUTE, TF("Cannot calculate a route from %s (%d,%d) to %s%s",
 				$self->{source}{field}->baseName, $self->{source}{x}, $self->{source}{y},
 				$self->{target}->{map}, $destpos));
+			if (!exists $char->{route_failed_count}) {
+				$char->{route_failed_count} = 1;
+			} else {
+				$char->{route_failed_count}++;
+			}
+			if ($char->{route_failed_count} % 5 == 0) {
+				useTeleport(2);
+			}
+			if ($char->{route_failed_count} % 50 == 0) {
+				quit();
+			}
 			debug "CalcMapRoute failed.\n", "route";
 		}
 	}
