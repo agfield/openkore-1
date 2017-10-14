@@ -5,7 +5,7 @@ use Globals qw/%config $net %timeout_ex $field $char/;
 use Log qw/message/;
 use Translation qw/T TF/;
 use Commands;
-use Misc qw(offlineMode configModify);
+use Misc qw(offlineMode configModify quit);
 
 Plugins::register('multimap', 'multimap', \&on_unload);
 
@@ -88,8 +88,8 @@ sub multimap_init {
 		@current_multimap) = find_sutible_multimap($char->{'lv'});
 	if (!@current_multimap) {
 		message TF("can't find sutible multimap for base level %d\n", $char->{'lv'}), "system";
-		message TF("disable multiMap\n"), "system";
-		configModify('multiMapEnable', 0);
+		quit();
+		return;
 	}
 
 	message TF("use multiMap%d: %s\n", $current_multimap_index,
