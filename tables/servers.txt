@@ -26,7 +26,7 @@ addTableFolders bRO
 charBlockSize 144
 pinCode 1
 charDeleteDateType 1
-sendCryptKeys 0x04954F3D, 0x7E7623CC, 0x1C6F46B0
+sendCryptKeys 0x2D7D263E, 0x3A2903F8, 0x437C2D00
 
 [Brazil - bRO: Thor]
 ip 200.229.50.3
@@ -45,7 +45,7 @@ addTableFolders bRO
 charBlockSize 144
 pinCode 1
 charDeleteDateType 1
-sendCryptKeys 0x04954F3D, 0x7E7623CC, 0x1C6F46B0
+sendCryptKeys 0x2D7D263E, 0x3A2903F8, 0x437C2D00
 
 ## http://euro-ro.net/
 [Europe - euRO]
@@ -55,7 +55,7 @@ dead_message euRO was closed on September 30, 2010. There used to be transfers t
 ## http://www.ragnarokeurope.com/
 [France - fRO]
 title France - fRO (ragnarokeurope.com): Chaos
-ip 164.132.152.34
+ip 54.36.76.129
 port 6900
 master_version 31
 version 1
