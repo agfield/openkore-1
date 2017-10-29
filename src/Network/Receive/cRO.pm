@@ -234,6 +234,7 @@ sub new {
 		'0940' => '096A',
 	};
 
+	$self->{vender_items_list_item_pack} = 'V v2 C v C3 a8 a25';
 	return $self;
 }
 
