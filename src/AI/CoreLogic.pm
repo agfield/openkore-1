@@ -685,11 +685,10 @@ sub processSkillUse {
 				stand();
 
 			# Use skill if we haven't done so yet
-			} elsif (!$args->{skill_used}) {				
-				my ($target, $actorList, $skill, $level) = @_;
+			} elsif (!$args->{skill_used}) {
 				my $handle = $args->{skillHandle};
 				if (!defined $args->{skillID}) {
-					$skill = new Skill(auto => $handle, level => $args->{lv});
+					my $skill = new Skill(handle => $handle);
 					$args->{skillID} = $skill->getIDN();
 				}
 				my $skillID = $args->{skillID};
@@ -713,40 +712,22 @@ sub processSkillUse {
 					#$char->stopAttack();
 				}
 
-				# Give an error if we don't actually possess this skill				
+				# Give an error if we don't actually possess this skill
+				my $skill = new Skill(handle => $handle);
 				if ($char->{skills}{$handle}{lv} <= 0 && (!$char->{permitSkill} || $char->{permitSkill}->getHandle() ne $handle)) {
 					debug "Attempted to use skill (".$skill->getName().") which you do not have.\n";
 				}
-				
-				if ($skillsArea{$handle} == 2) {
-					$target = Actor::get($accountID);
-				} elsif ($args->{x} && $args->{y}) {
-					$target = { x => $args->{x}, y => $args->{y} };					
-				} elsif(!$args->{target}) {
-						AI::dequeue;
-						return;
-				} else {
-					$actorList = $monstersList;
-					$target = $monstersList->getByID($args->{target});
-					if (!$target) {
-						$target = Actor::get($accountID);
-					}
-				}
-				
-				undef $char->{permitSkill};
-				$args->{skill_use_last} = $char->{skills}{$handle}{time_used};				
+
 				$args->{maxCastTime}{time} = time;
-				
-				my $skillTask = new Task::UseSkill(
-					actor => $skill->getOwner,
-					target => $target,
-					actorList => $actorList,
-					skill => $skill,
-					priority => Task::USER_PRIORITY
-				);
-								
-				my $task = new Task::ErrorReport(task => $skillTask);
-				$taskManager->add($task);				
+				if ($skillsArea{$handle} == 2) {
+					$messageSender->sendSkillUse($skillID, $args->{lv}, $accountID);
+				} elsif ($args->{x} ne "") {
+					$messageSender->sendSkillUseLoc($skillID, $args->{lv}, $args->{x}, $args->{y});
+				} else {
+					$messageSender->sendSkillUse($skillID, $args->{lv}, $args->{target});
+				}
+				undef $char->{permitSkill};
+				$args->{skill_use_last} = $char->{skills}{$handle}{time_used};
 
 				delete $char->{cast_cancelled};
 
@@ -1701,6 +1682,7 @@ sub processAutoSell {
 
 			$args->{sentSellPacket_time} = time;
 			
+			Plugins::callHook('AI_sell_auto_done');
 		}
 	}
 }
@@ -1750,6 +1732,7 @@ sub processAutoBuy {
 		$ai_v{'temp'}{'var'} = AI::args->{'forcedBySell'};
 		$ai_v{'temp'}{'var2'} = AI::args->{'forcedByStorage'};
 		AI::dequeue;
+		Plugins::callHook('AI_buy_auto_done');
 
 		if ($ai_v{'temp'}{'var'} && $config{storageAuto}) {
 			AI::queue("storageAuto", {forcedBySell => 1});
@@ -1758,6 +1741,7 @@ sub processAutoBuy {
 		}
 
 	} elsif (AI::action eq "buyAuto" && timeOut($timeout{ai_buyAuto_wait})) {
+		Plugins::callHook('AI_buy_auto');
 		my $args = AI::args;
 		
 		if (exists $args->{sentBuyPacket_time} && exists $args->{index_failed}{$args->{lastIndex}}) {
