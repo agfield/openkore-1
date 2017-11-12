@@ -739,7 +739,7 @@ sub map_login {
 		$session && $session->{accountID} eq $args->{accountID}
 		# maybe sessionstore should store sessionID as bytes?
 		&& pack('V', $session->{sessionID}) eq $args->{sessionID}
-		&& $session->{sex} == $args->{sex}
+		#&& $session->{sex} == $args->{sex}
 		&& $session->{charID} eq $args->{charID}
 		&& $session->{state} eq 'About to load map'
 	) {

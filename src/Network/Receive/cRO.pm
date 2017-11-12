@@ -134,6 +134,16 @@ sub new {
 	}
 
 	my %handlers = qw(
+		account_server_info           0AC9
+		received_character_ID_and_Map 0AC5
+		map_changed                   0AC7
+		login_error                   0ACD
+		character_creation_successful 006D
+		private_message               0097
+		received_characters_info      082D
+		map_property3                 099B
+		area_spell_multiple2          099F
+
 		actor_moved 09DB
 		actor_connected 09DC
 		actor_exists 09DD

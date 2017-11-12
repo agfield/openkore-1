@@ -331,6 +331,7 @@ sub char_login {
 					mapName => $charInfo->{map},
 					mapIP => $host,
 					mapPort => $self->{mapServer}->getPort,
+					mapUrl => $self->{mapServer}->getHost . ":" . $self->{mapServer}->getPort . "\r\n",
 				}));
 			}
 		}

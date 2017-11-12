@@ -291,6 +291,9 @@ sub reconstruct_account_server_info {
 		stringToBytes($_->{name}),
 		@{$_}{qw(users display)},
 	) } @{$args->{servers}};
+	$args->{serverInfo} = pack('a32', "000000openkore-ragnarok\r\n");
+	$args->{serverInfo} .= pack('a128', "$args->{servers}[0]->{ip}"
+		. ":" . "$args->{servers}[0]->{port}" . "\r\n");
 }
 
 sub account_server_info {

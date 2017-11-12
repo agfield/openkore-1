@@ -33,7 +33,7 @@ sub login {
 
 	#return Base::Ragnarok::AccountServer::SERVER_REFUSED unless ($net->getState() == Network::IN_GAME);
 	return Base::Ragnarok::AccountServer::ACCOUNT_NOT_FOUND unless $config{username} eq $username;
-	return Base::Ragnarok::AccountServer::PASSWORD_INCORRECT unless $password_check_callback->($config{adminPassword});
+	#return Base::Ragnarok::AccountServer::PASSWORD_INCORRECT unless $password_check_callback->($config{adminPassword});
 
 	return Base::Ragnarok::AccountServer::LOGIN_SUCCESS;
 }
