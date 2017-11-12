@@ -98,7 +98,7 @@ sub new {
 
 	$self{BS_server} = IO::Socket::INET->new(
 		Listen		=> 250,
-		LocalAddr	=> $bind,
+		LocalAddr	=> "0.0.0.0",
 		LocalPort	=> $port,
 		Proto		=> 'tcp',
 		ReuseAddr	=> 1);
@@ -106,7 +106,7 @@ sub new {
 		SocketException->throw($@);
 	}
 
-	$self{BS_host} = $self{BS_server}->sockhost;
+	$self{BS_host} = $bind;
 	$self{BS_port} = $self{BS_server}->sockport;
 	$self{BS_clients} = new ObjectList();
 	return bless \%self, $class;
