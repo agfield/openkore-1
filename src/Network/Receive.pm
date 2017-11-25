@@ -891,6 +891,7 @@ sub actor_died_or_disappeared {
 			    ($config{itemsTakeAuto_party} &&
 			    ($monster->{dmgFromParty} > 0 ||
 			     $monster->{dmgFromYou} > 0))) {
+				AI::dequeue if AI::action eq "attack";
 				AI::clear("items_take");
 				ai_items_take($monster->{pos}{x}, $monster->{pos}{y},
 					$monster->{pos_to}{x}, $monster->{pos_to}{y});

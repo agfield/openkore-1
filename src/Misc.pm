@@ -3118,7 +3118,7 @@ sub useTeleport {
 	# look if the character has the skill
 	my $sk_lvl = 0;
 	if ($char->{skills}{AL_TELEPORT}) {
-		$sk_lvl = $char->{skills}{AL_TELEPORT}{lv};
+		$sk_lvl = 0;#$char->{skills}{AL_TELEPORT}{lv};
 	}
 
 	# only if we want to use skill ?
