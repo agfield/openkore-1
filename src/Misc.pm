@@ -2308,7 +2308,7 @@ sub mon_control {
 sub pickupitems {
 	my ($name) = @_;
 
-	return 2 if $name =~ '卡片';
+	return 2 if $name =~ /卡片/;
 	return ($pickupitems{lc($name)} ne '') ? $pickupitems{lc($name)} : $pickupitems{all};
 }
 

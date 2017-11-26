@@ -45,6 +45,13 @@ sub AI_pre {
 	}
 
 	for my Actor::Player $player (@$playersList) {
+		if ($player->{'name'} =~ /GM/) {
+			message TF("Find GM %s(%d) nearby\n", $player->{'name'}, $player->{'nameID'}), "teleport";
+			useTeleport(1);
+			offlineMode();
+			return;
+		}
+
 		if (!exists $avoids->{"$player->{nameID}"}) {
 			$avoids->{"$player->{nameID}"} = time;
 			message TF("Find a player %s(%d) nearby\n", $player->{'name'}, $player->{'nameID'}), "teleport";
