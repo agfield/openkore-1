@@ -41,6 +41,9 @@ sub new {
 		'082D' => ['received_characters_info', 'x2 C5 x20', [qw(normal_slot premium_slot billing_slot producible_slot valid_slot)]],
 		'099B' => ['map_property3', 'v a4', [qw(type info_table)]],
 		'099F' => ['area_spell_multiple2', 'v a*', [qw(len spellInfo)]], # -1
+		'09FD' => ['actor_moved', 'v C a4 a4 v3 V v5 a4 v6 a4 a2 v V C2 a6 C2 v2 a9 Z*', [qw(len object_type ID charID walk_speed opt1 opt2 option type hair_style weapon shield lowhead tick tophead midhead hair_color clothes_color head_dir costume guildID emblemID manner opt3 stance sex coords xSize ySize lv font opt4 name)]],
+		'09FE' => ['actor_connected', 'v C a4 a4 v3 V v11 a4 a2 v V C2 a3 C2 v2 a9 Z*', [qw(len object_type ID charID walk_speed opt1 opt2 option type hair_style weapon shield lowhead tophead midhead hair_color clothes_color head_dir costume guildID emblemID manner opt3 stance sex coords xSize ySize lv font opt4 name)]],
+		'09FF' => ['actor_exists', 'v C a4 a4 v3 V v11 a4 a2 v V C2 a3 C3 v2 a9 Z*', [qw(len object_type ID charID walk_speed opt1 opt2 option type hair_style weapon shield lowhead tophead midhead hair_color clothes_color head_dir costume guildID emblemID manner opt3 stance sex coords xSize ySize act lv font opt4 name)]],
 		#'0367' => ['sync_request_ex'],
 		'085A' => ['sync_request_ex'],
 		'085B' => ['sync_request_ex'],
@@ -144,9 +147,9 @@ sub new {
 		map_property3                 099B
 		area_spell_multiple2          099F
 
-		actor_moved 09DB
-		actor_connected 09DC
-		actor_exists 09DD
+		actor_moved 09FD
+		actor_connected 09FE
+		actor_exists 09FF
 		actor_connected 0858
 		inventory_item_added 0A0C
 		inventory_items_nonstackable 0A0D
